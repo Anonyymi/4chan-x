@@ -1,9 +1,6 @@
 SW.miniboard =
-  isOPContainerThread: true
+  isOPContainerThread: false
   mayLackJSON: true
-
-  # TODO:
-  # - encapsulate op post to container
 
   disabledFeatures: [
     'Banner'
@@ -26,12 +23,13 @@ SW.miniboard =
 
   selectors:
     board:         '.deleteform'
-    thread:        '.post:not(.reply)'
+    thread:        '.thread'
     threadDivider: '.deleteform > hr'
     summary:       '.omitted'
-    postContainer: '.post:not(.reply)'
-    replyOriginal: '.reply:not(.post)'
+    postContainer: '.post-container'
+    replyOriginal: '.reply-container'
     sideArrows:    'div.post-dash'
+    post:          '.post'
     infoRoot:      '.post-info'
     info:
       subject:   '.post-subject'
@@ -48,20 +46,20 @@ SW.miniboard =
       isSticky:   'img[src="/static/sticky.png"]'
       isClosed:   'img[src="/static/lock.png"]'
     file:
-      text:  'div.file-info'
-      link:  'div.file-info > a'
+      text:  '.file-info'
+      link:  '.file-info > a'
       thumb: 'a.file-thumb-href > img'
     thumbLink: 'a.file-thumb-href'
     highlightable:
-      op:      '.post:not(.reply)'
-      reply:   '.reply'
-      catalog: '.post-catalog'
+      op:      ' > .op'
+      reply:   ' > .reply'
+      catalog: ' > .thread'
     comment:   '.post-message'
     spoiler:   '.spoiler'
     quotelink: '.reference'
     catalog:
-      board:  'body'
-      thread: '.post-catalog'
+      board:  '#catalog'
+      thread: '.thread'
       thumb:  'img[id^="thumb-"]'
     boardList: '.boardlist'
     #boardListBottom: ''
@@ -77,9 +75,9 @@ SW.miniboard =
     highlight: 'highlight'
 
   xpath:
-    thread:         'div[contains(@class, "post") and not contains(@class, "reply")]'
-    postContainer:  'div[contains(@class, "post") and not contains(@class, "reply")]'
-    replyContainer: 'div[contains(@class, "post") and contains(@class, "reply")]'
+    thread:         'div[contains(@class, "thread")]'
+    postContainer:  'div[contains(@class, "post-container")]'
+    replyContainer: 'div[contains(@class, "reply-container")]'
 
   regexp:
     quotelink:
@@ -99,7 +97,7 @@ SW.miniboard =
       /<a [^>]*\bhref="[^"]*\/([^\/]+)\/(\d+)(?:\.\w+)?#([^\/]+)-(\d+)"/g
 
   bgColoredEl: ->
-    $.el 'div', className: 'post reply'
+    $.el 'div', className: 'reply'
 
   isFileURL: (url) ->
     /\/src\/[^\/]+/.test(url.pathname)
@@ -113,13 +111,13 @@ SW.miniboard =
 
   parseFile: (post, file) ->
     {text, link, thumb} = file
-    c.log "parseFile: #{text}"
-    return false if not (info = link.nextSibling?.textContent.match /\((.*,\s*)?([\d.]+ ?[KMG]?B).*\)/)
+    return false if not (info = link.nextSibling?.textContent.match /([\d.]+?[KMG]?B),\s([\d.]+x[\d.]+),\s([^\\\s\/]+\.[a-zA-Z]+)/)
+    
     c.log JSON.stringify info
     $.extend file,
-      name: text.title or link.title or link.textContent
-      size: info[2]
-      dimensions: info[0].match(/\d+x\d+/)?[0]
+      name: info[3]
+      size: info[1]
+      dimensions: info[2]
     if thumb
       $.extend file,
         thumbURL: thumb.src
