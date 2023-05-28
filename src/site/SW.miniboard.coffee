@@ -3,7 +3,21 @@ SW.miniboard =
   mayLackJSON: true
 
   disabledFeatures: [
+    'Fourchan thingies'
+    'Tinyboard Glue'
     'Banner'
+    'Favicon'
+    'Resurrect Quotes'
+    'Quick Reply Personas'
+    'Quick Reply'
+    'Quote Inlining'
+    'Quote Previewing'
+    'Quote Backlinks'
+    'Quote Threading'
+    'Image Expansion'
+    'Image Expansion (Menu)'
+    'Thread Hiding Buttons'
+    'Thread Hiding (Menu)'
   ]
 
   detect: ->
@@ -17,7 +31,7 @@ SW.miniboard =
     thread:     ({siteID, boardID, threadID}) -> "#{location.protocol}//#{siteID}/#{boardID}/#{threadID}"
     post:       ({boardID, postID})           -> "##{boardID}-#{postID}"
     index:      ({siteID, boardID})           -> "#{location.protocol}//#{siteID}/#{boardID}/"
-    catalog:    ({siteID, boardID})           -> "#{location.protocol}//#{siteID}/#{boardID}/catalog"
+    catalog:    ({siteID, boardID})           -> "#{location.protocol}//#{siteID}/#{boardID}/catalog/"
     file: ({siteID}, filename)                -> "http://#{siteID}/src/#{filename}"
     thumb: ({siteID}, filename)               -> "http://#{siteID}/src/thumb_#{filename}"
 
@@ -80,21 +94,8 @@ SW.miniboard =
     replyContainer: 'div[contains(@class, "reply-container")]'
 
   regexp:
-    quotelink:
-      ///
-        /
-        ([^/]+) # boardID
-        /
-        (\d+)   # threadID
-        /
-        ([^/]+) # boardID
-        (?:\.\w+)?\#
-        -
-        (\d+)   # postID
-        $
-      ///
-    quotelinkHTML:
-      /<a [^>]*\bhref="[^"]*\/([^\/]+)\/(\d+)(?:\.\w+)?#([^\/]+)-(\d+)"/g
+    quotelink: /\/([^\/]+)\/(\d+)\/([^\/\s]+)/
+    quotelinkHTML: /href="\/([^\/]+)\/(\d+)\/([^\/\s]+)"/g
 
   bgColoredEl: ->
     $.el 'div', className: 'reply'
@@ -111,7 +112,7 @@ SW.miniboard =
 
   parseFile: (post, file) ->
     {text, link, thumb} = file
-    return false if not (info = link.nextSibling?.textContent.match /([\d.]+?[KMG]?B),\s([\d.]+x[\d.]+),\s([^\\\s\/]+\.[a-zA-Z]+)/)
+    return false if not (info = link.nextSibling?.textContent.match /([\d.]+?[KMG]?B),\s([\d.]+x[\d.]+),\s([^\\\)\/]+)/)
     
     c.log JSON.stringify info
     $.extend file,
