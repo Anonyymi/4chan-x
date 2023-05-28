@@ -67,9 +67,9 @@ SW.miniboard =
     #psa:       '#globalMessage'
     #psaTop:    '#globalToggle'
     #searchBox: '#search-box'
-    # nav:
-    #   prev: '.prev > form > [type=submit]'
-    #   next: '.next > form > [type=submit]'
+    nav:
+      prev: '.pagetable a.prev'
+      next: '.pagetable a.next'
 
   classes:
     highlight: 'highlight'
