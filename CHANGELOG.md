@@ -2,7 +2,32 @@
 
 -Sometimes the changelog has notes (not comprehensive) acknowledging people's work. This does not mean the changes are their fault, only that their code was used. All changes to the script are chosen by and the fault of the maintainer (ccd0).
 
+### v1.14.23
+
+**v1.14.23.2** *(2025-12-16)* - [[Userscript](https://raw.githubusercontent.com/ccd0/4chan-x/1.14.23.2/builds/4chan-X-noupdate.user.js)] [[Chrome extension](https://raw.githubusercontent.com/ccd0/4chan-x/1.14.23.2/builds/4chan-X-noupdate.crx)]
+- Update for change in how 'Verification not required' message is displayed.
+
+**v1.14.23.1** *(2024-11-20)* - [[Userscript](https://raw.githubusercontent.com/ccd0/4chan-x/1.14.23.1/builds/4chan-X-noupdate.user.js)] [[Chrome extension](https://raw.githubusercontent.com/ccd0/4chan-x/1.14.23.1/builds/4chan-X-noupdate.crx)]
+- (saxamaphone69) Fix dead documentation link.
+- (youcmd) Recognize Youtube stream links.
+- (kpg-anon) Recognize Youtube shorts links.
+- (TuxedoTako) Fix settings import from 4chan XT.
+- (edde746) Fix issue with script on Orion browser.
+- Possible fix for reported issue in v1.14.23.0 causing stylesheet selector not to work.
+
+**v1.14.23.0** *(2024-11-20)* - [[Userscript](https://raw.githubusercontent.com/ccd0/4chan-x/1.14.23.0/builds/4chan-X-noupdate.user.js)] [[Chrome extension](https://raw.githubusercontent.com/ccd0/4chan-x/1.14.23.0/builds/4chan-X-noupdate.crx)]
+- Based on v1.14.22.4.
+- (4chenz) Support posting MP4 files on 4chan.
+- 4channel.org domain is no more; fix issue with links not being bold in headers.
+- Fix for unwanted sorting of catalog under certain settings. #3212
+- Turn JS Whitelist functionality off by default. At the moment it breaks more stuff than it fixes.
+- (paradox460) Add ability to clear whole thread watcher.
+- (paradox460) Add a button to quick reply to split long posts.
+
 ### v1.14.22
+
+**v1.14.22.5** *(2024-11-20)* - [[Userscript](https://raw.githubusercontent.com/ccd0/4chan-x/1.14.22.5/builds/4chan-X-noupdate.user.js)] [[Chrome extension](https://raw.githubusercontent.com/ccd0/4chan-x/1.14.22.5/builds/4chan-X-noupdate.crx)]
+- (4chenz) Support posting MP4 files on 4chan.
 
 **v1.14.22.4** *(2023-02-28)* - [[Userscript](https://raw.githubusercontent.com/ccd0/4chan-x/1.14.22.4/builds/4chan-X-noupdate.user.js)] [[Chrome extension](https://raw.githubusercontent.com/ccd0/4chan-x/1.14.22.4/builds/4chan-X-noupdate.crx)]
 - Recognize JPEG files with .jfif extensions as images for purposes of Image Hover etc.; also recognize .avif and .jxl files as images.
